@@ -64,7 +64,8 @@ function Signal:connect(callback)
 	local listener = {
 		callback = callback,
 		disconnected = false,
-		connectTraceback = debug.traceback()
+		connectTraceback = debug.traceback(),
+		disconnectTraceback = nil
 	}
 
 	self._listeners = immutableAppend(self._listeners, listener)
