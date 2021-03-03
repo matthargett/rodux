@@ -3,4 +3,9 @@ name = "roblox/rodux"
 author = "Roblox"
 license = "Apache-2.0"
 content_root = "src"
-version = "1.1.0"
+version = "2.0.0"
+
+[dev_dependencies]
+# Different kinds of dependencies are specified in different ways. See more details at:
+# https://pages.github.rbx.com/pdoyle/rotriever-docs/reference/manifest-format/#specifying-manifest-dependencies
+TestEZ = "github.com/roblox/testez@0.4.1"
