@@ -1,0 +1,29 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "roblox-lrdb",
+            "request": "launch",
+            "name": "Debug Unit Tests",
+            "args": [
+                "--verbose",
+                "--load.project",
+                "test-bundle.project.json",
+                "--run",
+                "scripts/run-tests.lua",
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+
+            // Optional arguments allowing customization of the runtime executable
+            // "runtime": {
+            //     "channel": "develop", // or "stable"
+            //     "version": "latest", // or any other version
+            //     "variant": "robloxdev-cli", // or "roblox-cli"
+            // }
+        },
+    ]
+}
