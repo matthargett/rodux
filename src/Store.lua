@@ -49,7 +49,7 @@ end
 	local self = {}
 
 	self._errorReporter = errorReporter or defaultErrorReporter
-	self.isDispatching = false
+	self._isDispatching = false
 	self._reducer = reducer
 	self._state = reducer(initialState, {
 		type = "@@INIT",
@@ -91,7 +91,7 @@ end
 	Get the current state of the Store. Do not mutate this!
 ]]
 function Store:getState()
-	if self.isDispatching then
+	if self._isDispatching then
 		error(("You may not call store:getState() while the reducer is executing. " ..
 			"The reducer (%s) has already received the state as an argument. " ..
 			"Pass it down from the top reducer instead of reading it from the store."):format(tostring(self._reducer)))
@@ -100,7 +100,7 @@ function Store:getState()
 	return self._state
 end
 
-function Store:reportReducerError(failedAction, error_, traceback)
+function Store:_reportReducerError(failedAction, error_, traceback)
 	local message = ("Caught error when running action (%s) " ..
 		"through reducer (%s): \n%s"):format(tostring(failedAction), tostring(self._reducer), tostring(error_))
 
@@ -127,20 +127,20 @@ function Store:dispatch(action)
 			"Have you misspelled a constant?", 2)
 	end
 
-	if self.isDispatching then
+	if self._isDispatching then
 		error("Reducers may not dispatch actions.")
 	end
 
 	local ok, result = pcall(function()
-		self.isDispatching = true
+		self._isDispatching = true
 		self._state = self._reducer(self._state, action)
 		self._mutatedSinceFlush = true
 	end)
 
-	self.isDispatching = false
+	self._isDispatching = false
 
 	if not ok then
-		self:reportReducerError(
+		self:_reportReducerError(
 			action,
 			result,
 			debug.traceback()

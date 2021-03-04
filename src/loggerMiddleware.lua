@@ -7,12 +7,12 @@ local function prettyPrint(value, indentLevel)
 	if typeof(value) == "table" then
 		table.insert(output, "{\n")
 
-		for key, value_ in pairs(value) do
+		for tableKey, tableValue in pairs(value) do
 			table.insert(output, indent:rep(indentLevel + 1))
-			table.insert(output, tostring(key))
+			table.insert(output, tostring(tableKey))
 			table.insert(output, " = ")
 
-			table.insert(output, prettyPrint(value_, indentLevel + 1))
+			table.insert(output, prettyPrint(tableValue, indentLevel + 1))
 			table.insert(output, "\n")
 		end
 

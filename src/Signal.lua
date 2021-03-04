@@ -52,7 +52,6 @@ function Signal:connect(callback)
 		error("Expected the listener to be a function.")
 	end
 
-	-- TODO: subscribe can't happen while store isDispatching, but can't get that store state here
 	if self._store and self._store.isDispatching then
 		error(
 			'You may not call store.changed:connect() while the reducer is executing. ' ..
