@@ -79,7 +79,7 @@ end
 			dispatch = middleware(dispatch, self)
 		end
 
-		self.dispatch = function(self, ...)
+		self.dispatch = function(_self, ...)
 			return dispatch(...)
 		end
 	end

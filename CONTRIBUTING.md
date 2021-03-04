@@ -47,7 +47,7 @@ Before starting a pull request, open an issue about the feature or bug. This hel
 Before you submit a new pull request, check:
 * Code Style: Match the existing code!
 * Changelog: Add an entry to [CHANGELOG.md](CHANGELOG.md)
-* Selene: Run [Selene](https://github.com/kampfkerren) on your code, no warnings allowed!
+* Selene: Run [Selene](https://github.com/kampfkarren/selene) on your code, no warnings allowed!
 
 ### Code Style
 Try to match the existing code style! In short:
@@ -62,7 +62,7 @@ Adding an entry to [CHANGELOG.md](CHANGELOG.md) alongside your commit makes it e
 Add a line under the "Current master" heading. When we make a new release, all of those bullet points will be attached to a new version and the "Current master" section will become empty again.
 
 ### Selene
-We use [Selene](https://github.com/kampfkerren/selene) for static analysis of Lua on all of our projects.
+We use [Selene](https://github.com/kampfkarren/selene) for static analysis of Lua on all of our projects.
 
 From the command line, just run `selene src` to check the Rodux source.
 
