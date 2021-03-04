@@ -52,7 +52,7 @@ function Signal:connect(callback)
 		error("Expected the listener to be a function.")
 	end
 
-	if self._store and self._store.isDispatching then
+	if self._store and self._store._isDispatching then
 		error(
 			'You may not call store.changed:connect() while the reducer is executing. ' ..
 			  'If you would like to be notified after the store has been updated, subscribe from a ' ..
@@ -76,12 +76,12 @@ function Signal:connect(callback)
 					tostring(listener.connectTraceback),
 					tostring(listener.disconnectTraceback)
 			)
-			self._store.errorReporter:reportErrorDeferred(errorMessage, debug.traceback())
+			self._store._errorReporter:reportErrorDeferred(errorMessage, debug.traceback())
 
 			return
 		end
 
-		if self._store and self._store.isDispatching then
+		if self._store and self._store._isDispatching then
 			error("You may not unsubscribe from a store listener while the reducer is executing.")
 		end
 
@@ -107,7 +107,7 @@ function Signal:reportListenerError(listener, callbackArgs, error_)
 	if self._store then
 		self._store._errorReporter:reportErrorImmediately(message, error_)
 	else
-		print(message .. tostring(error))
+		print(message .. tostring(error_))
 	end
 end
 
