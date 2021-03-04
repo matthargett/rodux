@@ -96,10 +96,35 @@ function Signal:connect(callback)
 	}
 end
 
+function Signal:reportListenerError(listener, callbackArgs, error_)
+	local message = ("Caught error when calling event listener (%s), " ..
+		"originally subscribed from: \n%s\n" ..
+		"with arguments: \n%s\n"):format(
+			tostring(listener.callback),
+			tostring(listener.connectTraceback),
+			tostring(callbackArgs)
+		)
+
+	if self._store then
+		self._store._errorReporter:reportErrorImmediately(message, error_)
+	else
+		print(message .. tostring(error))
+	end
+end
+
 function Signal:fire(...)
 	for _, listener in ipairs(self._listeners) do
 		if not listener.disconnected then
-			listener.callback(...)
+			local ok, result = pcall(function(...)
+				listener.callback(...)
+			end, ...)
+			if not ok then
+				self:reportListenerError(
+					listener,
+					{...},
+					result
+				)
+			end
 		end
 	end
 end
