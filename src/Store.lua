@@ -92,9 +92,9 @@ end
 ]]
 function Store:getState()
 	if self.isDispatching then
-		error("You may not call store:getState() while the reducer is executing. " ..
+		error(("You may not call store:getState() while the reducer is executing. " ..
 			"The reducer (%s) has already received the state as an argument. " ..
-			"Pass it down from the top reducer instead of reading it from the store."):format(tostring(self._reducer))
+			"Pass it down from the top reducer instead of reading it from the store."):format(tostring(self._reducer)))
 	end
 
 	return self._state
