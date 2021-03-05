@@ -4,6 +4,7 @@
 	Handlers are fired in order, and (dis)connections are properly handled when
 	executing an event.
 ]]
+local prettyPrint = require(script.Parent.prettyPrint)
 
 local function immutableAppend(list, ...)
 	local new = {}
@@ -101,7 +102,7 @@ function Signal:reportListenerError(listener, callbackArgs, error_)
 		"with arguments: \n%s\n"):format(
 			tostring(listener.callback),
 			tostring(listener.connectTraceback),
-			tostring(callbackArgs)
+			prettyPrint(callbackArgs)
 		)
 
 	if self._store then
