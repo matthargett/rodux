@@ -1,0 +1,12 @@
+{
+  "name": "RoduxTestModel",
+  "tree": {
+    "$className": "Folder",
+    "Packages": {
+      "$path": "Packages",
+	  "Rodux": {
+		"$path": "src"
+	  }
+    }
+  }
+}

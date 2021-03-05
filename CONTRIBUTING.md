@@ -14,35 +14,31 @@ Just like bug reports, take a peak at the issue tracker for duplicates before op
 ## Working on Rodux
 To get started working on Rodux, you'll need:
 * Git
-* Lua 5.1
-* [LuaFileSystem](https://keplerproject.github.io/luafilesystem/) (`luarocks install luafilesystem`)
-* [Luacheck](https://github.com/mpeterv/luacheck) (`luarocks install luacheck`)
-* [LuaCov](https://keplerproject.github.io/luacov) (`luarocks install luacov`)
 
-Before the tests will work, make sure you have all of the repository's Git submodules installed. If you haven't cloned it yet, you can use:
+
+Before the tests will work, make sure you have installed all of the repository's foreman and rotriever dependencies. If you haven't cloned it yet, you can use:
+
+Foreman is an un-package manager that retrieves code directly from GitHub repositories. We'll use this to get a Lua package manager and other utilities. The Foreman packages are listed in `foreman.toml`. Foreman uses Rust, so you'll have to install Rust first.
 
 ```sh
-git clone --recurse-submodules https://github.com/Roblox/rodux.git
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+export PATH=$PATH:$HOME/.cargo/bin
+cargo install foreman
+foreman github-auth <your GitHub API token that you used for npm login above>
+foreman install
+export PATH=$PATH:~/.foreman/bin/
 ```
 
-If you've already cloned the Rodux repository, you can use:
+Now you can run the tests, edit code, and contribute! Next we need to install our Lua package dependencies. We do this with a tool called Rotriever, which Foreman just installed for us. The package dependencies are listed in `rotriever.toml`.
 
 ```sh
-git submodule init
-git submodule update
+rotrieve install —git-auth <github username>@<github API TOKEN>
 ```
 
-Finally, you can run all of Rodux's tests with:
+Next we're going to use Rojo (installed by Foreman above) to compile and package our Lua code into a format that Roblox understands.
 
 ```sh
-lua spec.lua
-```
-
-Or, to generate a LuaCov coverage report:
-
-```sh
-lua -lluacov spec.lua
-luacov
+rojo build --output model.rbxmx
 ```
 
 ## Pull Requests
@@ -51,8 +47,7 @@ Before starting a pull request, open an issue about the feature or bug. This hel
 Before you submit a new pull request, check:
 * Code Style: Match the existing code!
 * Changelog: Add an entry to [CHANGELOG.md](CHANGELOG.md)
-* Luacheck: Run [Luacheck](https://github.com/mpeterv/luacheck) on your code, no warnings allowed!
-* Tests: They all need to pass!
+* Selene: Run [Selene](https://github.com/kampfkarren/selene) on your code, no warnings allowed!
 
 ### Code Style
 Try to match the existing code style! In short:
@@ -61,17 +56,15 @@ Try to match the existing code style! In short:
 * Double quotes
 * One statement per line
 
-Eventually we'll have a tool to check these things automatically.
-
 ### Changelog
 Adding an entry to [CHANGELOG.md](CHANGELOG.md) alongside your commit makes it easier for everyone to keep track of what's been changed.
 
 Add a line under the "Current master" heading. When we make a new release, all of those bullet points will be attached to a new version and the "Current master" section will become empty again.
 
-### Luacheck
-We use [Luacheck](https://github.com/mpeterv/luacheck) for static analysis of Lua on all of our projects.
+### Selene
+We use [Selene](https://github.com/kampfkarren/selene) for static analysis of Lua on all of our projects.
 
-From the command line, just run `luacheck src` to check the Rodux source.
+From the command line, just run `selene src` to check the Rodux source.
 
 You should get it working on your system, and then get a plugin for the editor you use. There are plugins available for most popular editors!
 
@@ -79,5 +72,3 @@ You should get it working on your system, and then get a plugin for the editor y
 When submitting a bug fix, create a test that verifies the broken behavior and that the bug fix works. This helps us avoid regressions!
 
 When submitting a new feature, add tests for all functionality.
-
-We use [LuaCov](https://keplerproject.github.io/luacov) for keeping track of code coverage. We'd like it to be as close to 100% as possible, but it's not always easy.

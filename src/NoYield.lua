@@ -1,3 +1,6 @@
+--!nocheck
+-- ROBLOX TODO: remove this when Luau built-in signature for debug.traceback is correct
+
 --[[
 	Calls a function and throws an error if it attempts to yield.
 

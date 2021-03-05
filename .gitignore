@@ -1,4 +1,13 @@
+# Rbxm model files
+/*.rbxmx
+
+# Dependencies
+Packages/*
+!Packages/.robloxrc
+
+# Rotriever lockfile
+rotriever.lock
+
+# Misc
 /luacov.*
 /site/
-/*.rbxmx
-/*.rbxm
